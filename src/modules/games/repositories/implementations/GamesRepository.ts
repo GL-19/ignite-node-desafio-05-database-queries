@@ -15,8 +15,8 @@ export class GamesRepository implements IGamesRepository {
   async findByTitleContaining(param: string): Promise<Game[]> {
     // Complete usando query builder
     const games = await this.repository
-      .createQueryBuilder("game")
-      .where("game.name=:param", { param })
+      .createQueryBuilder("games")
+      .where("games.title ilike :title", { title: `%${param}%` })
       .getMany();
 
     return games;
@@ -33,7 +33,13 @@ export class GamesRepository implements IGamesRepository {
 
   async findUsersByGameId(id: string): Promise<User[]> {
     // Complete usando query builder
-    const users = await this.repository.createQueryBuilder().getOne();
+    const games = await this.repository
+      .createQueryBuilder("games")
+      .leftJoinAndSelect("games.users", "users")
+      .where("games.id = :id", { id })
+      .getMany();
+
+    console.log(games);
 
     return [];
   }

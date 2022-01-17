@@ -99,8 +99,6 @@ describe("Repositories", () => {
       user_id,
     });
 
-    console.log("findUserWithGamesById: ", user); //remover
-
     expect(user).toMatchObject({
       first_name: "Danilo",
       last_name: "Vieira",
@@ -121,8 +119,6 @@ describe("Repositories", () => {
 
   it("[UsersRepository] should be able to list users ordered by first name", async () => {
     const users = await usersRepository.findAllUsersOrderedByFirstName();
-
-    console.log("findAllUsersOrderedByFirstName: ", users); //remover
 
     expect(users).toEqual([
       expect.objectContaining({
@@ -146,14 +142,10 @@ describe("Repositories", () => {
       last_name: "fRAga",
     });
 
-    console.log("findUserByFullName1: ", result1); //remover
-
     const result2 = await usersRepository.findUserByFullName({
       first_name: "Danilo",
       last_name: "Vieira",
     });
-
-    console.log("findUserByFullName2: ", result2); //remover
 
     expect(result1).toEqual([
       expect.objectContaining({
@@ -179,10 +171,6 @@ describe("Repositories", () => {
       "rocket league"
     );
 
-    console.log("findByTitleContaining1: ", result1); //remover
-    console.log("findByTitleContaining2: ", result2); //remover
-    console.log("findByTitleContaining3: ", result3); //remover
-
     expect(result1).toEqual([
       expect.objectContaining({
         title: "The Last Of Us",
@@ -207,8 +195,6 @@ describe("Repositories", () => {
 
   it("[GamesRepository] should be able to get the total count of games", async () => {
     const [{ count }] = await gamesRepository.countAllGames();
-
-    console.log("countAllGames: ", count); // remover
 
     expect(count).toBe("4");
   });
